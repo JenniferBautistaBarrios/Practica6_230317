@@ -187,4 +187,30 @@ app.post("/logout", async (req, res) => {
   }
 });
 
+app.get("/listAllSessions", async (req, res) => {
+  try {
+    const sessions = await sessionModel.find();
+    return res.status(200).json({ 
+      message: "Todas las sesiones", 
+      sessions 
+    });
+  } catch (error) {
+    return res.status(500).json({ 
+      error: error.message 
+    });
+  }
+});
+
+app.delete("/deleteAllSessions", async (req, res) => {
+  try {
+    await sessionModel.deleteMany();
+    return res.status(200).json({ message: "Todas las sesiones han sido eliminadas" });
+  } catch (error) {
+    return res.status(500).json({ 
+      error: error.message 
+    });
+  }
+});
+
+
 app.listen(3000, () => console.log("Aplicación iniciada en el puerto 3000"));
